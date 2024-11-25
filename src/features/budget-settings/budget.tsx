@@ -13,7 +13,9 @@ export const BudgetWrapper = () => {
   const budget = useSelector((state: RootState) => state.budget)
 
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
-
+  if (!budget || !budget.budgetModel) {
+    return <p>Veri yükleniyor...</p> // Loader veya hata mesajı ekle
+  }
   return (
     <ContentProvider loading>
       <DataGrid
