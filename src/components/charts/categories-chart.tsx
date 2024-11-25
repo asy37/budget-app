@@ -22,7 +22,13 @@ const CategoriesPie = ({ list }: Props) => {
       .reduce((total, item) => total + item.amount, 0)
   }
 
-  const categories = Array.from(new Set(list?.map((item) => item.category)))
+  const categories = Array.from(
+    new Set(
+      list
+        ?.map((item) => item.category)
+        .filter((category): category is string => !!category)
+    )
+  )
   const categoryTotals = categories.map((category) =>
     calculateCategoryTotal(category)
   )

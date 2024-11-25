@@ -12,7 +12,7 @@ import {
 import { CircleAlert, CircleCheck, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-export const columns = (): ColumnDef<Budget>[] => {
+export const Columns = (): ColumnDef<Budget>[] => {
   const dispatch = useDispatch()
   const warnings = useLimitWarning()
 

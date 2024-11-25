@@ -25,7 +25,7 @@ export const ContentProvider = ({ children, loading, className }: Props) => {
       setIsLoading(false)
     }
     return () => setIsLoading(false)
-  }, [dispatch, setBudget, setIncome, setExpense, setTotalBudget])
+  }, [dispatch])
 
   if (isLoading) {
     return (
