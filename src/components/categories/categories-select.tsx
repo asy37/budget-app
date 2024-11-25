@@ -13,8 +13,9 @@ type Props = {
 }
 
 export const CategoriesSelect: React.FC<Props> = ({ filtered }) => {
-  const existingCategories = useSelector((state: RootState) =>
-    state.budget.budgetModel.map((budget) => budget.category)
+  const existingCategories = useSelector(
+    (state: RootState) =>
+      state.budget.budgetModel?.map((budget) => budget.category) ?? []
   )
 
   const allCategories = categories
