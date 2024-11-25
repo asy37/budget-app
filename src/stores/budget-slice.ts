@@ -48,13 +48,6 @@ export const budgetSlice = createSlice({
     },
 
     setBudget: (state, action: PayloadAction<BudgetResponse>) => {
-      if (
-        !action.payload.budgetModel ||
-        action.payload.totalAmount === undefined
-      ) {
-        console.error('Geçersiz veri:', action.payload)
-        return
-      }
       state.budgetModel = action.payload.budgetModel
       state.amount = action.payload.totalAmount
     },

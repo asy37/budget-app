@@ -13,15 +13,64 @@ interface Props {
   className?: string
 }
 
-export const ContentProvider = ({ children, loading, className }: Props) => {
+const defaultBudgetData = { budgetModel: [], totalAmount: 0 }
+const defaultIncomeData = { incomeModel: [], totalAmount: 0 }
+const defaultExpenseData = { expenseModel: [], totalAmount: 0 }
+const defaultTotalBudgetData = 0
+
+export const ContentProvider = ({
+  children,
+  loading = true,
+  className,
+}: Props) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(loading)
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      dispatch(setBudget(getDataFromStorage('budgetData')))
-      dispatch(setIncome(getDataFromStorage('incomeData')))
-      dispatch(setExpense(getDataFromStorage('expenseData')))
-      dispatch(setTotalBudget(getDataFromStorage('totalBudgetData')))
+      const budgetData = getDataFromStorage('budgetData') || defaultBudgetData
+      if (
+        !Array.isArray(budgetData.budgetModel) ||
+        typeof budgetData.totalAmount !== 'number'
+      ) {
+        console.warn('Geçersiz budget verisi, varsayılan değer atanıyor.')
+        dispatch(setBudget(defaultBudgetData))
+      } else {
+        dispatch(setBudget(budgetData))
+      }
+
+      const incomeData = getDataFromStorage('incomeData') || defaultIncomeData
+      if (
+        !Array.isArray(incomeData.incomeModel) ||
+        typeof incomeData.totalAmount !== 'number'
+      ) {
+        console.warn('Geçersiz income verisi, varsayılan değer atanıyor.')
+        dispatch(setIncome(defaultIncomeData))
+      } else {
+        dispatch(setIncome(incomeData))
+      }
+
+      const expenseData =
+        getDataFromStorage('expenseData') || defaultExpenseData
+      if (
+        !Array.isArray(expenseData.expenseModel) ||
+        typeof expenseData.totalAmount !== 'number'
+      ) {
+        console.warn('Geçersiz expense verisi, varsayılan değer atanıyor.')
+        dispatch(setExpense(defaultExpenseData))
+      } else {
+        dispatch(setExpense(expenseData))
+      }
+
+      const totalBudgetData =
+        getDataFromStorage('totalBudgetData') || defaultTotalBudgetData
+      if (typeof totalBudgetData !== 'number') {
+        console.warn('Geçersiz total budget verisi, varsayılan değer atanıyor.')
+        dispatch(setTotalBudget({ totalAmount: totalBudgetData }))
+      } else {
+        dispatch(setTotalBudget({ totalAmount: totalBudgetData }))
+      }
+
       setIsLoading(false)
     }
     return () => setIsLoading(false)
@@ -53,5 +102,6 @@ export const ContentProvider = ({ children, loading, className }: Props) => {
       </div>
     )
   }
+
   return <div className={className}>{children}</div>
 }
