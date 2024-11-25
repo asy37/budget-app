@@ -12,10 +12,13 @@ export const TotalMoney = () => {
   const [showExpense, setShowExpense] = useState(false)
 
   const totalBudget = useSelector(
-    (state: RootState) => state.totalBudget.totalAmount
+    (state: RootState) => state.totalBudget.amount
   )
+  console.log(totalBudget)
+
   const totalIncome = useSelector((state: RootState) => state.income.amount)
   const totalExpense = useSelector((state: RootState) => state.expense.amount)
+  console.log(totalIncome)
 
   const formattedTotalBudget = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
@@ -29,6 +32,7 @@ export const TotalMoney = () => {
     style: 'currency',
     currency: 'TRY',
   }).format(totalExpense)
+
   return (
     <div className="flex w-full shrink-0 flex-col items-center justify-between gap-2 lg:flex-row">
       <Card className="flex h-full w-full items-center justify-around p-2">

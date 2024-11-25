@@ -29,47 +29,20 @@ export const ContentProvider = ({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const budgetData = getDataFromStorage('budgetData') || defaultBudgetData
-      if (
-        !Array.isArray(budgetData.budgetModel) ||
-        typeof budgetData.totalAmount !== 'number'
-      ) {
-        console.warn('Geçersiz budget verisi, varsayılan değer atanıyor.')
-        dispatch(setBudget(defaultBudgetData))
-      } else {
-        dispatch(setBudget(budgetData))
-      }
+      dispatch(setBudget(budgetData))
 
       const incomeData = getDataFromStorage('incomeData') || defaultIncomeData
-      if (
-        !Array.isArray(incomeData.incomeModel) ||
-        typeof incomeData.totalAmount !== 'number'
-      ) {
-        console.warn('Geçersiz income verisi, varsayılan değer atanıyor.')
-        dispatch(setIncome(defaultIncomeData))
-      } else {
-        dispatch(setIncome(incomeData))
-      }
+
+      dispatch(setIncome(incomeData))
 
       const expenseData =
         getDataFromStorage('expenseData') || defaultExpenseData
-      if (
-        !Array.isArray(expenseData.expenseModel) ||
-        typeof expenseData.totalAmount !== 'number'
-      ) {
-        console.warn('Geçersiz expense verisi, varsayılan değer atanıyor.')
-        dispatch(setExpense(defaultExpenseData))
-      } else {
-        dispatch(setExpense(expenseData))
-      }
+
+      dispatch(setExpense(expenseData))
 
       const totalBudgetData =
         getDataFromStorage('totalBudgetData') || defaultTotalBudgetData
-      if (typeof totalBudgetData !== 'number') {
-        console.warn('Geçersiz total budget verisi, varsayılan değer atanıyor.')
-        dispatch(setTotalBudget({ totalAmount: totalBudgetData }))
-      } else {
-        dispatch(setTotalBudget({ totalAmount: totalBudgetData }))
-      }
+      dispatch(setTotalBudget(totalBudgetData))
 
       setIsLoading(false)
     }

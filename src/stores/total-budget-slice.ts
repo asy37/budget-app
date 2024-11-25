@@ -3,11 +3,11 @@ import { setDataToStorage } from '@/helpers/storageHelper'
 import { TotalAmountPayload } from '@/types/total-amount'
 
 type TotalBudgetState = {
-  totalAmount: number
+  amount: number
 }
 
 const initialState: TotalBudgetState = {
-  totalAmount: 0,
+  amount: 0,
 }
 
 export const totalBudgetSlice = createSlice({
@@ -15,25 +15,26 @@ export const totalBudgetSlice = createSlice({
   initialState,
   reducers: {
     addTBudgetIncome: (state, action: PayloadAction<number>) => {
-      state.totalAmount += action.payload
-      setDataToStorage('totalBudgetData', { totalAmount: state.totalAmount })
+      state.amount += action.payload
+      setDataToStorage('totalBudgetData', { totalAmount: state.amount })
     },
 
     addButgetExpense: (state, action: PayloadAction<number>) => {
-      state.totalAmount -= action.payload
-      setDataToStorage('totalBudgetData', { totalAmount: state.totalAmount })
+      state.amount -= action.payload
+      setDataToStorage('totalBudgetData', { totalAmount: state.amount })
     },
 
     resetTotalBudget: (state) => {
-      state.totalAmount = 0
-      setDataToStorage('totalBudgetData', { totalAmount: state.totalAmount })
+      state.amount = 0
+      setDataToStorage('totalBudgetData', { totalAmount: state.amount })
     },
 
     setTotalBudget: (state, action: PayloadAction<TotalAmountPayload>) => {
+      debugger
       if (action.payload && action.payload.totalAmount !== undefined) {
-        state.totalAmount = action.payload.totalAmount
+        state.amount = action.payload.totalAmount
       } else {
-        state.totalAmount = 0
+        state.amount = 0
       }
     },
   },
